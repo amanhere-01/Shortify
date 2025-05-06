@@ -9,7 +9,8 @@ const urlSchema = mongoose.Schema(
     },
     redirectURL : {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     visitHistory : [    //Array of objects
       {

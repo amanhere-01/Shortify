@@ -6,6 +6,14 @@ async function handleGenerateNewShortURL(req,res){
   if(!body.url){
     return res.status(400).json({msg: "URL is required!"});
   }
+  
+  const existingUrl = await URL.findOne({ redirectURL: body.url });
+  if(existingUrl){
+    return res.render('home', {
+      msg: 'Url already exists',
+      existingId: existingUrl.shortId
+    })
+  }
   const shortId = nanoid(8);
 
   await URL.create({
@@ -14,7 +22,9 @@ async function handleGenerateNewShortURL(req,res){
     visitHistory:[]
   })
 
-  return res.json({id: shortId});
+  return res.render('home', {
+    id: shortId
+  })
 }
 
 async function handleGetAnalytics(req,res){
