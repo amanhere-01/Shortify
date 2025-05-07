@@ -22,24 +22,10 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}));
 
 //Routes
+app.use('/', staticRouter);
 app.use('/url', urlRouter);
-app.use('/', staticRouter)
 
 
-app.get('/url/:shortId', async (req,res) => {
-  const shortId = req.params.shortId;
-  const entry = await URL.findOneAndUpdate(
-    {shortId},
-    {
-      $push: {
-        visitHistory: {
-          timestamp : new Date().toLocaleString(),
-        }
-      }
-    }
-  )
 
-  return res.redirect(entry.redirectURL);
-})
 
 app.listen(PORT, () => console.log(`Server started at ${PORT}`));
