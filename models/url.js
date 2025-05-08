@@ -10,7 +10,6 @@ const urlSchema = mongoose.Schema(
     redirectURL : {
       type: String,
       required: true,
-      unique: true
     },
     visitHistory : [    //Array of objects
       {
@@ -18,7 +17,11 @@ const urlSchema = mongoose.Schema(
           type: String
         }
       }
-    ]
+    ],
+    createdBy : {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users'
+    }
   },
   {timestamps: true}
 );

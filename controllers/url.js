@@ -7,19 +7,13 @@ async function handleGenerateNewShortURL(req,res){
     return res.status(400).json({msg: "URL is required!"});
   }
   
-  const existingUrl = await URL.findOne({ redirectURL: body.url });
-  if(existingUrl){
-    return res.render('home', {
-      msg: 'Url already exists',
-      existingId: existingUrl.shortId
-    })
-  }
   const shortId = nanoid(8);
 
   await URL.create({
     shortId: shortId,
     redirectURL: body.url,
-    visitHistory:[]
+    visitHistory:[],
+    createdBy: req.user._id //this is to show the urls of users that he has created
   })
 
   return res.render('home', {

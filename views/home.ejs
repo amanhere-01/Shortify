@@ -19,6 +19,7 @@
         border-spacing: 20px 10px; /* horizontal gap, vertical gap */
       }
     </style>
+    
   </head>
   <body>
     <h1>URL Shortener</h1>
@@ -36,14 +37,7 @@
       </form>
     </div>
 
-    <% if (locals.msg && locals.existingId) { %>
-      <p style="color: red;">
-        <%= msg %>:
-        <a href="http://localhost:8001/url/<%= existingId %>" target="_blank">
-          http://localhost:8001/url/<%= existingId %>
-        </a>
-      </p>
-    <% } else if (locals.id) { %>
+    <% if (locals.id) { %>  <!-- backend se jo data aata hai wo local me store hota hai -->
       <p>
         Short URL Generated: 
         <a href="http://localhost:8001/url/<%= id %>" target="_blank">
